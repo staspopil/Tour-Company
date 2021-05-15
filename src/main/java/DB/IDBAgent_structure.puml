@@ -1,0 +1,307 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": ""
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false // root node is included
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "DB.IDBAgent"
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_2006930627 { 
+   	label=Loggers
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   ConsoleLogger2006930627[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ConsoleLogger</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ log(s: String)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+DBLogger2006930627[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)DBLogger</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   database: AgentMySqlConnection [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   date: LocalDate [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ log(s: String)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+DecoratorLogger2006930627[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)DecoratorLogger</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   logger: ILogger [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ log(s: String)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+LocalLogger2006930627[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)LocalLogger</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   date: LocalDate [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   file1: File [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   fw: FileWriter [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   pw: PrintWriter [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ log(s: String)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_2174 { 
+   	label=DB
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   AgentMySqlConnection2174[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)AgentMySqlConnection</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addClient(fName: String, sName: String, phone: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ closeConnection()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getDataFromDB(country: String, city: String, hotel: String, startdate: String, enddate: String, price: int, ishot: boolean): Map&lt;Integer, ArrayList&lt;String&gt;&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ log(string: String, data: LocalDate, user: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ makeJDBCConnection(logger: ILogger)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ reserve(sName: String, phone: String, ID: int)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+IDBAgent2174[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(I)IDBAgent</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addClient(fName: String, sName: String, phone: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getDataFromDB(): Map&lt;Integer, ArrayList&lt;String&gt;&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ log(s: String, data: LocalDate, user: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ makeJDBCConnection(logger: ILogger)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ reserve(sName: String, phone: String, ID: int)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#F1E5FD"
+];
+} 
+
+subgraph cluster_68139341 { 
+   	label=Frame
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   AgentUI68139341[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)AgentUI</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   ClientFName: JTextArea [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   ClientPanel: JPanel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   ClientPhone: JTextArea [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   ClientSName: JTextArea [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   HEIGHT: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   ListPanel: JPanel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   SelectPanel: JPanel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   WIDTH: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   checkBox: JCheckBox [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   city: JTextArea [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   clearbutton: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   columns: Object[] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   country: JTextArea [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   database: AgentMySqlConnection [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   descrButton: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   enddate: JTextArea [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   hotel: JTextArea [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   isHot: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   lClientFName: JLabel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   lClientPhone: JLabel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   lClientSName: JLabel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   lcity: JLabel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   lcountry: JLabel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   lenddate: JLabel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   lhotel: JLabel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   logger: ILogger [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   lprice: JLabel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   lstartdate: JLabel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   price: JTextArea [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   reserveButton: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   result: Map&lt;Integer, ArrayList&lt;String&gt;&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   rows: Object[][] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   selectbutton: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   startdate: JTextArea [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   table: JTable [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ actionPerformed(e: ActionEvent)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+OperatorUI68139341[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)OperatorUI</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   HEIGHT: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   InsertPanel: JPanel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   ListPanel: JPanel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   WIDTH: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   checkBox: JCheckBox [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   city: JTextArea [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   clearbutton: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   columns: Object[] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   country: JTextArea [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   database: OperatorMySqlConnection [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   description: JTextArea [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   enddate: JTextArea [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   hotel: JTextArea [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   insertbutton: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   isHot: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   lcity: JLabel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   lcountry: JLabel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   ldescription: JLabel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   lenddate: JLabel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   lhotel: JLabel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   logger: ILogger [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   lprice: JLabel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   lstartdate: JLabel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   price: JTextArea [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   reserveButton: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   result: Map&lt;Integer, ArrayList&lt;String&gt;&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   rows: Object[][] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   scrollpane: JScrollPane [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   selectButton: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   startdate: JTextArea [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   table: JTable [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   tourlist: JTextArea [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ actionPerformed(e: ActionEvent)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+'edges    
+AgentUI68139341 -> AgentMySqlConnection2174[label="database
+[0..1]"];
+AgentUI68139341 -> DBLogger2006930627[label="logger
+[0..1]"];
+DBLogger2006930627 -> AgentMySqlConnection2174[label="database
+[0..1]"];
+DBLogger2006930627 -> ConsoleLogger2006930627[arrowhead=none, arrowtail=empty, dir=both];
+DBLogger2006930627 -> DecoratorLogger2006930627[arrowhead=none, arrowtail=empty, dir=both];
+DBLogger2006930627 -> LocalLogger2006930627[arrowhead=none, arrowtail=empty, dir=both];
+DecoratorLogger2006930627 -> DBLogger2006930627[arrowhead=none, arrowtail=empty, dir=both];
+DecoratorLogger2006930627 -> DBLogger2006930627[label="logger
+[0..1]"];
+DecoratorLogger2006930627 -> LocalLogger2006930627[arrowhead=none, arrowtail=empty, dir=both];
+IDBAgent2174 -> AgentMySqlConnection2174[arrowhead=none, arrowtail=empty, dir=both];
+OperatorUI68139341 -> DBLogger2006930627[label="logger
+[0..1]"];
+    
+}
+@enduml
